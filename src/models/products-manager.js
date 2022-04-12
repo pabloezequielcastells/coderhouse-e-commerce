@@ -47,6 +47,7 @@ export default class ProductsManager {
         if (!this.products) await this.initialize();
         let index = this.products.findIndex(p => p.id == product.id);
         if (index >= 0) {
+            product.timestamp = new Date();
             this.products[index] = product;
             await this.save();
             return product;

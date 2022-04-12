@@ -6,7 +6,7 @@ const getAll = async(req, res) => {
     try {
         res.send(await manager.getAll());
     } catch (error) {
-        res.send({ status: "error", message: error });
+        res.status(500).send(error);
     }
 }
 
@@ -15,18 +15,18 @@ const get = async(req, res) => {
         const id = req.params.pid;
         res.send(await manager.get(id));
     } catch (error) {
-        res.send({ status: "error", message: error });
+        res.status(500).send(error);
     }
 }
 
 const createProduct = async(req, res) => {
     try {
-        const product = req.body;
+        let product = req.body;
         productValidation(product);
-        await manager.create(product);
+        product = await manager.create(product);
         res.send(product);
     } catch (error) {
-        res.send({ status: "error", message: error });
+        res.status(500).send(error);
     }
 
 }
@@ -39,7 +39,7 @@ const updateProduct = async(req, res) => {
         await manager.update(product);
         res.send(product);
     } catch (error) {
-        res.send({ status: "error", message: error });
+        res.status(500).send(error);
     }
 }
 
@@ -48,7 +48,7 @@ const deleteProduct = async(req, res) => {
         await manager.delete(req.params.pid);
         res.send({ status: "success", message: "Product deleted" });
     } catch (error) {
-        res.send({ status: "error", message: error });
+        res.status(500).send(error);
     }
 }
 

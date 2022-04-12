@@ -22,6 +22,11 @@ export default class CartsManager {
         await writeFile('carts.json', this.carts);
     }
 
+    async getAll() {
+        await this.initialize();
+        return this.carts;
+    }
+
     async getCartProducts(cid) {
         await this.initialize();
         let index = this.carts.findIndex(cart => cart.id == cid);
